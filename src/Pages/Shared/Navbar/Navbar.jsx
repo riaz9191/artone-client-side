@@ -18,8 +18,8 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="">
-      <div className="navbar bg-base-100 container">
+    <div>
+      <div className="navbar fixed z-10  bg-green-600 max-w-screen-xl text-white">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -40,21 +40,18 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-black bg-opacity-30 rounded-box w-52"
             >
               {navItems}
             </ul>
           </div>
-          <a className="cursor-pointer normal-case text-xl flex flex-col">
-            ArtOne
-          </a>
+          <a className="btn btn-ghost normal-case text-xl">ArtOne</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navItems}</ul>
         </div>
         <div className="navbar-end">
-          <a className="">Sign In</a>
-          <img height={40} width={40} src="https://w7.pngwing.com/pngs/690/196/png-transparent-logo-school-school-design-s-white-artwork-symbol.png" alt="" />
+          <a className="btn">Login</a>
         </div>
       </div>
     </div>
