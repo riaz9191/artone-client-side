@@ -5,9 +5,9 @@ import Navbar from "../../Pages/Shared/Navbar/Navbar";
 
 const Main = () => {
   return (
-    <div>
+    <div className="max-w-7xl">
       <Navbar></Navbar>
-      <div className="pt-24 min-h-[calc(71vh-50px)]">
+      <div className="pt-16 min-h-[calc(71vh-50px)]">
         <Outlet />
       </div>
       <Footer></Footer>
