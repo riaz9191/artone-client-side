@@ -1,6 +1,4 @@
-import React from "react";
 import Banner from "../Banner/Banner";
-import Container from "../../../Components/Container/Container";
 
 const Home = () => {
   return (
