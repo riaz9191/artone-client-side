@@ -1,19 +1,20 @@
-import React from 'react';
-import Navbar from '../Shared/Navbar/Navbar';
-import Footer from '../Shared/Footer/Footer';
+import useInstructors from "../../hooks/useInstructors";
+import SingleInstructoe from "./SingleInstructoe";
 
 const InstructorPage = () => {
-    return (
-        <div>
-            <Navbar></Navbar>
-            <h2 className='text-center font-bold text-4xl py-24'>Our Insturctor</h2>
-
-            <div>
-                
-            </div>
-            <Footer></Footer>
-        </div>
-    );
+  const [instructor] = useInstructors();
+  console.log(instructor);
+  
+  return (
+    <div>
+      <h2 className="text-center font-bold text-4xl py-5">Our Instructors</h2>
+      <div className="grid md:grid-cols-3 gap-4">
+        {instructor.map(instructor => (
+          <SingleInstructoe key={instructor._id} instructor={instructor} />
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default InstructorPage;
