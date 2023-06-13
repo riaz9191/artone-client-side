@@ -1,12 +1,18 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../Providers/AuthProviders";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { HiEye, HiEyeOff } from "react-icons/hi";
 import Swal from "sweetalert2";
+import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 
 const Login = () => {
   const { signIn } = useContext(AuthContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || "/";
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -14,20 +20,29 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password);
-    signIn(email, password).then((result) => {
-      const user = result.user;
+    signIn(email, password)
+      .then((result) => {
+        const user = result.user;
         console.log(user);
         Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Successfully Logged in',
-            showConfirmButton: false,
-            timer: 1500
-          })
-        navigate('/')
-    
-    });
+          position: "top-end",
+          icon: "success",
+          title: "Successfully Logged in",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        // Handle login error
+        console.log(error);
+      });
   };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
+
   return (
     <div>
       <Helmet>
@@ -62,16 +77,26 @@ const Login = () => {
                   className="input input-bordered"
                 />
               </div>
-              <div className="form-control">
+              <div className="form-control relative">
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="password"
-                  className="input input-bordered"
+                  className="input input-bordered pr-12"
                 />
+                <div
+                  className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? (
+                    <HiEyeOff className="text-gray-500" />
+                  ) : (
+                    <HiEye className="text-gray-500" />
+                  )}
+                </div>
                 <label className="label">
                   <a href="#" className="label-text-alt link link-hover">
                     Forgot password?
@@ -86,8 +111,11 @@ const Login = () => {
                   id=""
                 />
               </div>
-            <p>New Here? <Link to='/signup'>Create an Account</Link></p>
+              <p>
+                New Here? <Link to="/signup">Create an Account</Link>
+              </p>
             </div>
+            <SocialLogin></SocialLogin>
           </form>
         </div>
       </div>

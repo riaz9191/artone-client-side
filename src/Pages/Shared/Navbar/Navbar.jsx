@@ -3,22 +3,21 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProviders";
 
 const Navbar = () => {
-  const {user,logOut} = useContext(AuthContext)
+  const { user, logOut } = useContext(AuthContext);
   const handleLogout = () => {
     logOut()
-    .then(()=>{
-
-    }).catch(err=>{
-      console.log(err)
-    })
-  }
+      .then(() => {})
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const navItems = (
     <>
       <li>
         <a>Home</a>
       </li>
       <li>
-        <a>Instructors</a>
+        <Link to='/instructor'><a>Instructors</a></Link>
       </li>
       <li>
         <a>Classes</a>
@@ -62,8 +61,27 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{navItems}</ul>
         </div>
         <div className="navbar-end">
-          {user && <img src={user?.photoURL} className="h-10 w-10 rounded-3xl mr-3" alt="" />}
-          {user ? <><Link onClick={handleLogout} className="pr-10">LogOut</Link></> : <><Link to='login' className="pr-10">Login</Link></>}
+          {user && (
+            <img
+              src={user?.photoURL ? user.photoURL : 'https://img.freepik.com/free-icon/user_318-159711.jpg'}
+              className="h-10 w-10 rounded-3xl mr-3"
+              alt=""
+            />
+          )}
+         
+          {user ? (
+            <>
+              <Link onClick={handleLogout} className="pr-10">
+                LogOut
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="login" className="pr-10">
+                Login
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>
