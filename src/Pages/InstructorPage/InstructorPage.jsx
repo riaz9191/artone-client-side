@@ -4,7 +4,6 @@ import SingleInstructoe from "./SingleInstructoe";
 
 const InstructorPage = () => {
   const [instructor] = useInstructors();
-  console.log(instructor);
   
   return (
     <div>

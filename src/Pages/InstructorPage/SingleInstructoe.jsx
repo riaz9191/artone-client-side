@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 const SingleInstructoe = ({instructor}) => {
-    console.log(instructor);
     
     return (
       <div>

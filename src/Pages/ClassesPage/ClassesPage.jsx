@@ -1,11 +1,62 @@
 import { useContext } from "react";
 import useClasses from "../../hooks/useClasses";
 import { AuthContext } from "../../Providers/AuthProviders";
+import Swal from "sweetalert2";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ClassesPage = () => {
   const [classes] = useClasses();
-  const {user} = useContext(AuthContext)
-  console.log(classes)
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleAddToCart = (item) => {
+    console.log(item);
+    if (user) {
+        const cartItem = {
+            itemId: item._id,
+            itemName: item.name,
+            itemPrice: item.price,
+            itemInstructor: item.instructor,
+            itemSeat: item.available_seats,
+            email: user.email
+          };
+    
+      fetch("http://localhost:5000/carts", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(cartItem)
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.insertedId) {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Added to cart",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        });
+    } else {
+      Swal.fire({
+        title: "Login Buddy",
+        text: "Please Login First to Select any Class",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Login Now!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login", {state: {from: location}});
+        }
+      });
+    }
+  };
   return (
     <div>
       <div>
@@ -15,9 +66,7 @@ const ClassesPage = () => {
             {/* head */}
             <thead>
               <tr>
-                <th>
-                  #
-                </th>
+                <th>#</th>
                 <th>Class Name</th>
                 <th>Instructor Name</th>
                 <th>Price</th>
@@ -49,9 +98,14 @@ const ClassesPage = () => {
                     <br />
                   </td>
                   <td>${classItem.price}</td>
-                  <td>${classItem.available_seats}</td>
+                  <td>{classItem.available_seats}</td>
                   <th>
-                    <button className="btn btn-xs">Select Class</button>
+                    <button
+                      onClick={() => handleAddToCart(classItem)}
+                      className="btn btn-xs"
+                    >
+                      Select Class
+                    </button>
                   </th>
                 </tr>
               ))}
