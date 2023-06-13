@@ -18,6 +18,10 @@ export const router = createBrowserRouter([
         path: "/instructor",
         element : <InstructorPage></InstructorPage>
       },
+      {
+        path: "/classes",
+        element : <InstructorPage></InstructorPage>
+      },
     ],
   },
   {
