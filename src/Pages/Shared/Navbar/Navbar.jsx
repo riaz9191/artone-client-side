@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProviders";
 
@@ -17,10 +17,10 @@ const Navbar = () => {
         <a>Home</a>
       </li>
       <li>
-        <Link to='/instructor'><a>Instructors</a></Link>
+        <Link to='/instructor'>Instructors</Link>
       </li>
       <li>
-        <a>Classes</a>
+        <Link to='/classes'>Classes</Link>
       </li>
       <li>
         <a>Dashboard </a>
