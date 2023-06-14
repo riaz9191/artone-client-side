@@ -14,7 +14,7 @@ const Navbar = () => {
   const navItems = (
     <>
       <li>
-        <a>Home</a>
+        <Link to='/'>Home</Link>
       </li>
       <li>
         <Link to='/instructor'>Instructors</Link>
@@ -23,7 +23,7 @@ const Navbar = () => {
         <Link to='/classes'>Classes</Link>
       </li>
       <li>
-        <a>Dashboard </a>
+       <Link to='dashboard/mycart'> Dashboard </Link>
       </li>
     </>
   );
