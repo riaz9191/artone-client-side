@@ -1,9 +1,14 @@
 import { NavLink, Outlet } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import { FaBook, FaBookmark, FaBuffer, FaHome, FaWallet } from "react-icons/fa";
+import { FaBook, FaBookmark, FaBuffer, FaHome,  FaUsers, FaWallet } from "react-icons/fa";
+import useCart from "../../hooks/useCart";
 
 const Dashboard = () => {
   const { user } = useAuth();
+  const [cart] = useCart();
+  //todo: admin
+  const isAdmin = true;
+  const isStudent = false;
   return (
     <div className="drawer drawer-mobile">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -30,7 +35,27 @@ const Dashboard = () => {
           <div className="text-center mt-4 mb-10 font-bold">
             <p>{user?.displayName}</p>
           </div>
+          {isAdmin && <><li>
+            <NavLink to="/">
+              <FaHome />
+              Admin Home
+            </NavLink>
+          </li>
           <li>
+            <NavLink to="/dashboard/">
+              <FaBook />
+              Manage Classes{" "}
+              
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/allusers">
+              <FaUsers />
+             Manage Users
+            </NavLink>
+          </li>
+         </>  }
+          {isStudent && <><li>
             <NavLink to="/">
               <FaHome />
               Student Home
@@ -39,13 +64,16 @@ const Dashboard = () => {
           <li>
             <NavLink to="/dashboard/mycart">
               <FaBookmark />
-              Selected Class
+              Selected Classes{" "}
+              <span className="badge inl badge-secondary">
+                +{cart?.length || 0}
+              </span>
             </NavLink>
           </li>
           <li>
             <NavLink to="/dashboard/">
               <FaBook />
-              Enrolled Class
+              Enrolled Classes
             </NavLink>
           </li>
           <li>
@@ -53,7 +81,7 @@ const Dashboard = () => {
               <FaWallet />
               Payment History
             </NavLink>
-          </li>
+          </li></>}
 
           <div className="divider "></div>
           <li>
