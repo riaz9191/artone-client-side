@@ -2,17 +2,19 @@ import { NavLink, Outlet } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { FaBook, FaBookmark, FaBuffer, FaHome,  FaUsers, FaWallet } from "react-icons/fa";
 import useCart from "../../hooks/useCart";
+import useAdmin from "../../hooks/useAdmin";
 
 const Dashboard = () => {
   const { user } = useAuth();
   const [cart] = useCart();
   //todo: admin
-  const isAdmin = true;
+  // const isAdmin = true;
+  const [isAdmin] = useAdmin();
   const isStudent = false;
   return (
     <div className="drawer drawer-mobile">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col items-center justify-center">
+      <div className="drawer-content flex flex-col items-center ">
         <Outlet></Outlet>
         <label
           htmlFor="my-drawer-2"
@@ -28,7 +30,7 @@ const Dashboard = () => {
           <div className="flex  justify-center mt-5">
             <img
               src={user?.photoURL}
-              className="rounded-full text-center "
+              className="rounded-full h-40 w-40 text-center "
               alt=""
             />
           </div>

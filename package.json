@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^4.29.12",
+    "axios": "^1.4.0",
+    "axois": "^0.0.1-security",
     "daisyui": "^2.51.6",
     "firebase": "^9.22.2",
     "localforage": "^1.10.0",
